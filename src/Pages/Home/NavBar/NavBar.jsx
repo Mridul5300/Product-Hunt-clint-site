@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const NavBar = () => {
+     const {logout,user} = useContext(AuthContext);
+     
      const Navlinks =<>
      <li><NavLink to={'/'}>Home</NavLink></li>
      <li><NavLink to={'product'}>Product</NavLink></li>
@@ -26,23 +30,29 @@ const NavBar = () => {
                          </ul>
                     </div>
                     <div className="navbar-end">
+                         { user ? (
                          <div className="dropdown dropdown-end">
                               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                    <div className="w-10 rounded-full">
-                                        <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                        <img alt="Tailwind CSS Navbar component" src={ user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} title={(user?.displayName || user.email) }/>
                                    </div>
                               </div>
                               <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                                    <li>
                                         <a className="justify-between">
                                              Profile
-                                             <span className="badge">New</span>
+                                             <span className="text-black z-20">{user?.displayName || user.displayName || "New"}</span>
                                         </a>
                                    </li>
                                    <li><NavLink to={'dashbord'}>DashBord</NavLink></li>
-                                   <li><a>Logout</a></li>
+                                   <li onClick={logout} className="  hover  text-black md:pb-2 md:px-4 py-1 px-2 cursor-pointer">Logout</li>
                               </ul>
                          </div>
+                              ) : (
+                                   <Link to='/login'>
+                                   <button className="btn btn-ghost text-black text-lg md:text-xl  hover md:pb-2 md:px-4 py-1 px-2 rounded-lg ">Login</button>
+                              </Link>     
+                              )}
                     </div>
                </div>
           </div>

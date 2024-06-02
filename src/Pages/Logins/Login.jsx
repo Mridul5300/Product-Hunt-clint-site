@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
      const {signIn} = useContext(AuthContext)
@@ -11,7 +12,7 @@ const Login = () => {
      const [error, setError] = useState(null);
      const location = useLocation();
   const navigate = useNavigate();
-  console.log("your location", location);
+//   console.log("your location", location);
      
      const {
           register,
@@ -37,7 +38,7 @@ const Login = () => {
     signIn(email, password)
       .then(result => {
         console.log(result.user);
-        
+        toast.success("login successful");
         // navigate after login 
         navigate(location?.state ? location.state : "/");
         
@@ -51,6 +52,7 @@ const Login = () => {
      const handleSociallogin = socialProvider => {
           socialProvider()
           .then(result => {
+               toast.success("Login successful");
             if(result.user){
             navigate(location ?.state || "/")
             }
@@ -124,12 +126,13 @@ const Login = () => {
                               
                          </div>
                          <p className="text-xs text-center sm:px-6 dark:text-gray-600">Don t have an account?
-                              <a rel="noopener noreferrer" href="#" className="underline dark:text-gray-800">Sign up</a>
+                              <Link to={"/registration"}  className="underline dark:text-gray-800">Sign up</Link>
                          </p>
                               </div>
                          </div>
                     </div>
                </div>
+               <Toaster />
           </div>
      );
 
