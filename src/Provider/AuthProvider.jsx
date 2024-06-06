@@ -50,7 +50,7 @@ const upDateUser = (name,image) => {
      useEffect( () => {
      const unsubscribe = onAuthStateChanged(auth,currentUser => {
                setUser(currentUser);
-               console.log('currrent user', currentUser);
+               // console.log('currrent user', currentUser);
                setLoading(false)
           });
           return () => {
