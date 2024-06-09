@@ -35,14 +35,13 @@ const Products = () => {
           e.preventDefault();
           const searchText=e.target.search.value;
           setSearchBar(searchText)
-          console.log(searchText);
-          setPage(1); // Reset to the first page when a new search is performed
+          // console.log(searchText);
+          setPage(1); 
      };
 
      return (
           <div>
                <div className="mt-2 mb-3">
-               {/* <h2 className="text-3xl text-center">Products:{products.length}</h2> */}
                <h2 className="text-3xl text-center">Products: {products.length}</h2>
                </div>
                <div>

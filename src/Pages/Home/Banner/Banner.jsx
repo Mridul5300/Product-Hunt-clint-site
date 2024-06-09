@@ -1,34 +1,39 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
 
 const Banner = () => {
      return (
-          <div className='container pb-7 px-5  mx-auto'>
-           <Swiper className="mySwiper ">
-        <SwiperSlide >
-      
-        </SwiperSlide>
-        <div className="hero min-h-screen" style={{backgroundImage: 'url(https://i.ibb.co/n7kQx9S/vita-vilcina-Kt-Oid0-FLjq-U-unsplash.jpg)'}}>
-               <div className="hero-overlay bg-opacity-60"></div>
-               <div data-aos="fade-down" className="hero-content text-center text-neutral-content">
-                    <div className="max-w-md">
-                         <h1 className="mb-5 text-5xl font-bold">Your Dream Hotel</h1>
-                         <p className="mb-5">The global travel landscape is constantly evolving, influenced by factors such as economic shifts, geopolitical developments, and health crises.</p>
-                    </div>
-               </div>
-          </div>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
-          </div>
+     //      <div className="p-6 py-12 bg-gray-400-600 dark:text-gray-50  style={{backgroundImage: 'url(https://i.ibb.co/pLh72hW/45184679-9150222.jpg)'}}">
+     //      <div className="container mx-auto">
+     //           <div className="flex flex-col lg:flex-row items-center justify-between">
+     //                <h2 className="text-center text-6xl tracking-tighter font-bold">Up to
+     //                     <br  className="sm:hidden" />
+     //                </h2>
+     //                <div className="space-x-2 text-center py-2 lg:py-0">
+     //                     <span>Plus free shipping! Use code:</span>
+     //                     <span className="font-bold text-lg">MAMBA</span>
+     //                </div>
+     //                <a href="#" rel="noreferrer noopener" className="px-5 mt-4 lg:mt-0 py-3 rounded-md border block dark:bg-gray-900 dark:text-gray-50 dark:border-gray-600">Shop Now</a>
+     //           </div>
+     //      </div>
+     // </div>
+     <div 
+     className="p-6 py-12 bg-gray-400-600 text-gray-50 mt-2 rounded-md"
+     style={{ backgroundImage: 'url(https://i.ibb.co/pLh72hW/45184679-9150222.jpg)' }}
+ >
+     <div className="container mx-auto">
+         <div className="flex flex-col lg:flex-row items-center justify-between">
+             <h2 className="text-center text-6xl tracking-tighter font-bold">
+                 Up to
+                 <br className="sm:hidden" />
+             </h2>
+             <div className="space-x-2 text-center py-2 lg:py-0">
+                 <span>Plus free shipping! Use code:</span>
+                 <span className="font-bold text-lg">MAMBA</span>
+             </div>
+            
+         </div>
+     </div>
+ </div>
      );
 };
 
