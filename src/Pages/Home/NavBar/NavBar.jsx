@@ -22,7 +22,7 @@ const NavBar = () => {
                                    {Navlinks}
                               </ul>
                          </div>
-                         <Link to={"/"} className="btn btn-ghost text-xl">daisyUI</Link>
+                         <Link to={"/"} className="btn btn-ghost text-xl uppercase">aitechhunt</Link>
                     </div>
                     <div className="navbar-center hidden lg:flex">
                          <ul className="menu menu-horizontal gap-2 px-1">
@@ -44,7 +44,7 @@ const NavBar = () => {
                                              <span className="text-black z-20">{user?.displayName || user.displayName || "New"}</span>
                                         </a>
                                    </li>
-                                   <li><NavLink to={'/dashbord/card'}>DashBord</NavLink></li>
+                                   <li><NavLink to={'dashbord/card'}>DashBord</NavLink></li>
                                    <li onClick={logout} className="  hover  text-black md:pb-2 md:px-4 py-1 px-2 cursor-pointer">Logout</li>
                               </ul>
                          </div>

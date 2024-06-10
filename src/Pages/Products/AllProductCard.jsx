@@ -12,14 +12,18 @@ const AllProductCard = ({product}) => {
                <div className="p-4">
                <h2 className="text-3xl font-bold mb-2">{SoftwareName}</h2>
                <div className="flex flex-wrap mb-2">
-                    {Tags.map((tag, index) => (
-                    <span
-                    key={index}
-                    className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                    >
-                    {tag}
-                    </span>
-                    ))}
+               {Array.isArray(Tags) ? (
+              Tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                >
+                  {tag}
+                </span>
+              ))
+            ) : (
+              <span className="text-gray-500">No tags available</span>
+            )}
                </div>
                <div className="flex justify-between items-center">
                     <div className="text-gray-700 text-sm">{Upvote} Upvotes</div>

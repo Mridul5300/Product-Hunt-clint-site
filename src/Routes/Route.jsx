@@ -5,8 +5,11 @@ import Products from "../Pages/Products/Products";
 import Login from "../Pages/Logins/Login";
 import Registration from "../Pages/Registration/Registration";
 import ErrorPage from "../Pages/Error Pages/ErrorPage";
-import DashBord from "../Pages/DashBord/DashBord";
 import AddProduct from "../Pages/DashBord/DashBoardPage/AddProduct/AddProduct";
+import DashBoardLayout from "../Pages/DashBord/DashBoardLayout/DashBoardLayout";
+import MyProduct from "../Pages/DashBord/DashBoardPage/MyProduct/MyProduct";
+import MyProFile from "../Pages/DashBord/DashBoardPage/MyProfile/MyProFile";
+
 
 
 const router = createBrowserRouter([
@@ -36,12 +39,20 @@ const router = createBrowserRouter([
      },
      
      {     
-     path:'/dashbord',
-     element:<DashBord></DashBord>,
+     path:'dashbord',
+     element:<DashBoardLayout></DashBoardLayout>,
      children:[
           {
                path:"card",
                element:<AddProduct></AddProduct>
+          },
+          {
+               path:"myproduct",
+               element:<MyProduct></MyProduct>
+          },
+          {
+               path:"profile",
+               element:<MyProFile></MyProFile>
           }
      ]
 

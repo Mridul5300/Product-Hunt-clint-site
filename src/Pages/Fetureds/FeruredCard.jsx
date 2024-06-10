@@ -24,7 +24,7 @@ const FeruredCard = ({fetureCard}) => {
         <div className="flex justify-between flex-wrap items-center">
             <p className="text-sm">Posted Time: {Timestamp}</p>
             <div className="flex items-center">
-                <button className="flex items-center justify-end p-2">
+                <button className="flex items-center flex-wrap justify-end p-2">
                     <PiCaretUpDuotone className="text-2xl" />
                 </button>
             </div>
