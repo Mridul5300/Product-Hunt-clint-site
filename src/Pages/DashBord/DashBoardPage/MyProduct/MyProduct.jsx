@@ -1,22 +1,67 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider";
+import MyProductTable from "./MyProductTable";
+import Swal from "sweetalert2";
+
 
 
 
 const MyProduct = () => {
   const {user} = useContext(AuthContext)
-  const [products, setProducts] = useState([]);
+  const [myproducts, setMyProducts] = useState([]);
 
 
   useEffect(() => {
     const Products = async () => {
-         const response = await fetch(`http://localhost:5000/myproduct/${user?.email}`);
-         const data = await response.json();
-         setProducts(data.products);
+      try {
+        const response = await fetch(`http://localhost:5000/myproduct/${user?.email}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // console.log(data); // Logging the data for debugging
+        setMyProducts(data);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
     };
 
-    Products();
-}, []);
+    if (user?.email) {
+      Products();
+    }
+  }, [user]);
+  const handleDelete = id => {
+    // console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to Cancel this Booking Item !",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+      fetch(`http://localhost:5000/product/${id}`, {
+           method:'DELETE'
+      })
+      .then(res => res.json())
+      .then(data => {
+          //  console.log(data);
+           if(data.deletedCount > 0){
+            Swal.fire({
+          title: "Cancel!",
+          text: "Your Bookig Cancel.",
+          icon: "success"
+        });
+
+        const remaining = myproducts.filter(booking => booking._id !== id);
+        setMyProducts(remaining)
+           }
+      });
+      }
+    });
+  }
      return (
           <div>
                 <div className='container mx-auto px-4 sm:px-8'>
@@ -72,7 +117,13 @@ const MyProduct = () => {
                 </thead>
                 <tbody>{/* Room row data */}
 
-                    
+                 {myproducts.map((product) => (
+                    <MyProductTable 
+                    key={product._id} 
+                    card={product}
+                    handleDelete={ handleDelete}
+                     />
+                  ))}
 
                 </tbody>
               </table>

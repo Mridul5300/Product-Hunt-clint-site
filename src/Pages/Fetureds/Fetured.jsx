@@ -11,7 +11,7 @@ const Fetured = () => {
           // Fetch the featured products
           axios.get('http://localhost:5000/product')
             .then(result => {
-              console.log(result.data);
+          //     console.log(result.data);
               setFeturedProducts(result.data.products)
             })
             .catch(error => {

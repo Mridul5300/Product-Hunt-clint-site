@@ -12,6 +12,7 @@ import MyProFile from "../Pages/DashBord/DashBoardPage/MyProfile/MyProFile";
 
 
 
+
 const router = createBrowserRouter([
      {
        path: "/",
@@ -53,7 +54,8 @@ const router = createBrowserRouter([
           {
                path:"profile",
                element:<MyProFile></MyProFile>
-          }
+          },
+          
      ]
 
      }

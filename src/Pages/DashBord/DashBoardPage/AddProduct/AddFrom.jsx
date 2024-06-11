@@ -33,7 +33,7 @@ import { useNavigate } from "react-router-dom";
 
           try {
             const image_url = await imageUpload(SoftwareImage)
-            console.log(image_url);
+            // console.log(image_url);
             const productdata = {
               SoftwareName,
               SoftwareImage: image_url,
@@ -45,13 +45,13 @@ import { useNavigate } from "react-router-dom";
             };
             // Submit the product data to the backend
             const response = await axios.post('http://localhost:5000/addproduct', productdata);
-            console.table(productdata);
+            // console.table(productdata);
             console.log('Product added:', response.data);
             toast.success('Successfully Added Room!')
             Navigate("/dashbord/card")
             
           } catch (err) {
-            console.log(err)
+            // console.log(err)
             toast.error('Not Successfully Added Room!')
 
           }
