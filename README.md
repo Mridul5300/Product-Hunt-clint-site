@@ -1,4 +1,4 @@
-# Hotel Website
+# Techunt Website
 To get started with Tech Hunt Product, visit our live site at[ # Techunt Website
 
 Welcome to Hotel booking Website , a dynamic and user-friendly platform designed to enhance your reading experience.
