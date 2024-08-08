@@ -8,13 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 
 
-
-
-
       const AddFrom = () => {
         const Navigate = useNavigate()
         const { user } = useContext(AuthContext);
-        const [selected, setSelected] = useState(["superVison"]);
+        const [selected, setSelected] = useState([""]);
 
 
         const handlesubmit = async e => {
@@ -43,15 +40,14 @@ import { useNavigate } from "react-router-dom";
               Timestamp,
               host,
             };
-            // Submit the product data to the backend
+          
             const response = await axios.post('http://localhost:5000/addproduct', productdata);
-            // console.table(productdata);
             console.log('Product added:', response.data);
             toast.success('Successfully Added Room!')
             Navigate("/dashbord/card")
             
           } catch (err) {
-            // console.log(err)
+            
             toast.error('Not Successfully Added Room!')
 
           }
@@ -62,7 +58,7 @@ import { useNavigate } from "react-router-dom";
           <form onSubmit={handlesubmit} className="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add New Product</h2>
 
-            {/* Product Owner Info */}
+        
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2 rounded-md">Product Owner Info</label>
               <div className="flex flex-col items-center  mb-4 bg-gray-100 p-4 ">
@@ -178,3 +174,4 @@ import { useNavigate } from "react-router-dom";
       };
 
 export default AddFrom;
+// ismailjosim99@gmail.com

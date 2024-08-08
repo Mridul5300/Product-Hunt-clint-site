@@ -1,8 +1,24 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 
 const AllProductCard = ({product}) => {
-     const{ SoftwareName,SoftwareImage, Tags, Upvote}=product
+     const{_id, SoftwareName,SoftwareImage, Tags, vote}=product; 
+    const [voteCount, setVoteCount] = useState(vote);
+
+     const handleVote = async () => {
+      try {
+          const response = await fetch(`http://localhost:5000
+/products/${_id}/vote`, {
+              method: 'POST'
+          });
+          if (response.ok) {
+              setVoteCount(prevCount => prevCount + 1); // Increment vote count
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  };
      return (
           <div>
                <div className="card bg-white shadow-md rounded-lg overflow-hidden max-w-sm mx-auto my-4">
@@ -26,10 +42,12 @@ const AllProductCard = ({product}) => {
             )}
                </div>
                <div className="flex justify-between items-center">
-                    <div className="text-gray-700 text-sm">{Upvote} Upvotes</div>
-                    <button className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition duration-300">
+                  
+                    <button onClick={handleVote}  className=" btn bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition duration-300">
                     Upvote
+                    <span className="ml-2">{voteCount}</span>
                     </button>
+                  
                </div>
                </div>
           </div>

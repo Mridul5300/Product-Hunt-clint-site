@@ -36,7 +36,8 @@ import { TagsInput } from "react-tag-input-component";
 //                     host,
 //                };
 //                // update the product data to the backend
-//                fetch(`http://localhost:5000/myproduct/${id}`, {
+//                fetch(`http://localhost:5000
+/myproduct/${id}`, {
 //                     method: 'PUT',
 //                     headers: {
 //                          'Content-Type': 'application/json',

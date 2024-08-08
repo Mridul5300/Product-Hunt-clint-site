@@ -9,6 +9,15 @@ import AddProduct from "../Pages/DashBord/DashBoardPage/AddProduct/AddProduct";
 import DashBoardLayout from "../Pages/DashBord/DashBoardLayout/DashBoardLayout";
 import MyProduct from "../Pages/DashBord/DashBoardPage/MyProduct/MyProduct";
 import MyProFile from "../Pages/DashBord/DashBoardPage/MyProfile/MyProFile";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import PrivateRoute from "./PrivateRoutes/PrivateRoute";
+import StaticPage from "../Pages/DashBord/DashBoardPage/StaticPage/StaticPage";
+import ManegeUser from "../Pages/DashBord/DashBoardPage/ManegUser/ManegeUser";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import Reported from "../Pages/DashBord/DashBoardPage/Reported/Reported";
+import Review from "../Pages/DashBord/DashBoardPage/Review/Review";
+import MangeCupon from "../Pages/DashBord/DashBoardPage/Manege Cupon/MangeCupon";
+import ModeratoreRoute from "./ModeratorRoute/ModeratoreRoute";
 
 
 
@@ -26,7 +35,14 @@ const router = createBrowserRouter([
           },
           {
                path:"/product",
-               element:<Products></Products>
+               element:<PrivateRoute><Products></Products></PrivateRoute>          
+          },
+
+          {
+               path: "/productdetail/:id",
+               element:<ProductDetails></ProductDetails>,
+               loader: ({ params }) => fetch(`http://localhost:5000
+/productdetail/${params.id}`)
           },
           {
                path:"/login",
@@ -41,7 +57,7 @@ const router = createBrowserRouter([
      
      {     
      path:'dashbord',
-     element:<DashBoardLayout></DashBoardLayout>,
+     element:<PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
      children:[
           {
                path:"card",
@@ -55,7 +71,28 @@ const router = createBrowserRouter([
                path:"profile",
                element:<MyProFile></MyProFile>
           },
-          
+          // Admin 
+          {
+               path:'statistics',
+               element:<AdminRoute><StaticPage></StaticPage></AdminRoute>
+          },
+          {
+               path:'users',
+               element:<AdminRoute><ManegeUser></ManegeUser></AdminRoute>
+          },
+          {
+               path:'coupons',
+               element:<AdminRoute><MangeCupon></MangeCupon></AdminRoute>
+          },
+          // Moderator
+          {
+               path:'report',
+               element:<ModeratoreRoute><Reported></Reported></ModeratoreRoute>
+          },
+          {
+               path:'review',
+               element:<ModeratoreRoute><Review></Review></ModeratoreRoute>
+          }
      ]
 
      }

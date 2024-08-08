@@ -14,7 +14,8 @@ const MyProduct = () => {
   useEffect(() => {
     const Products = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/myproduct/${user?.email}`);
+        const response = await fetch(`http://localhost:5000
+/myproduct/${user?.email}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -42,12 +43,12 @@ const MyProduct = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-      fetch(`http://localhost:5000/product/${id}`, {
+      fetch(`http://localhost:5000
+/product/${id}`, {
            method:'DELETE'
       })
       .then(res => res.json())
       .then(data => {
-          //  console.log(data);
            if(data.deletedCount > 0){
             Swal.fire({
           title: "Cancel!",
@@ -89,18 +90,7 @@ const MyProduct = () => {
                     >
                       status
                     </th>
-                    {/* <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      From
-                    </th> */}
-                    {/* <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      To
-                    </th> */}
+                    
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'

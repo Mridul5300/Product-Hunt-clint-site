@@ -4,13 +4,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import { TagsInput } from 'react-tag-input-component';
 import { imageUpload } from '../../../api/utiles';
 import { AuthContext } from '../../../../Provider/AuthProvider';
+import {FaTrashAlt } from 'react-icons/fa';
+import {FaAddressCard } from 'react-icons/fa6';
 
 
 
 const MyProductTable = ({ card, handleDelete }) => {
   const { user } = useContext(AuthContext);
   const [selected, setSelected] = useState(card?.Tags || []);
-
   const handleupdate = async (e, _id) => {
     e.preventDefault();
     const form = e.target;
@@ -26,12 +27,13 @@ const MyProductTable = ({ card, handleDelete }) => {
     const Timestamp = new Date().toISOString();
 
     try {
-      let image_url = card.SoftwareImage; // If no new image is uploaded, use the existing image URL
+      let image_url = card.SoftwareImage; 
       if (SoftwareImage) {
         image_url = await imageUpload(SoftwareImage);
       }
 
       const productdata = {
+        _id,
         SoftwareName,
         SoftwareImage: image_url,
         SoftwareDescription,
@@ -40,13 +42,14 @@ const MyProductTable = ({ card, handleDelete }) => {
         Timestamp,
         host,
       };
-
-      const response = await fetch(`http://localhost:5000/myproduct/${_id}`, {
+      console.log("Rendering accept and reject buttons...");
+      const response = await fetch(`http://localhost:5000
+/myproduct/${_id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productdata }),
+        body: JSON.stringify({ productdata,statuse: 'accepted' }),
       });
 
       const data = await response.json();
@@ -62,6 +65,55 @@ const MyProductTable = ({ card, handleDelete }) => {
     }
     location.reload();
   };
+
+//   const handleAccept = async (_id) => {
+//     try {
+//       const response = await fetch(`http://localhost:5000
+// /myproduct/${_id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+
+//       const data = await response.json();
+//       console.log(data);
+//       if (data.modifiedCount > 0) {
+//         toast.success('Product accepted');
+//       } else {
+//         toast.error('Accept failed');
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       toast.error('An error occurred while accepting the product');
+//     }
+    
+//     location.reload();
+//   };
+
+//   const handleReject = async (_id) => {
+//     try {
+//       const response = await fetch(`http://localhost:5000
+// /myproduct/reject/${_id}`, {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+
+//       const data = await response.json();
+//       if (data.modifiedCount > 0) {
+//         toast.success('Product rejected');
+//       } else {
+//         toast.error('Reject failed');
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       toast.error('An error occurred while rejecting the product');
+//     }
+  
+//     location.reload();
+//   };
 
   return (
     <tr>
@@ -85,15 +137,19 @@ const MyProductTable = ({ card, handleDelete }) => {
         <p className='text-gray-900 whitespace-no-wrap'>{card?.voteNumber}</p>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 whitespace-no-wrap'>{card?.status}</p>
+  
+
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <span className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-red-900 leading-tight'>
-          <span
+          {/* <span
             aria-hidden='true'
-            className='absolute inset-0 bg-red-100 opacity-50 rounded-full '
-          ></span>
-          <button onClick={() => handleDelete(card?._id)} className="btn btn-link btn-xl relative">Delete</button>
+            
+          ></span> */}
+          <button onClick={() => handleDelete(card?._id)} 
+          className="btn">
+            <FaTrashAlt className='text-2xl'></FaTrashAlt>
+          </button>
         </span>
 
       </td>
@@ -107,7 +163,9 @@ const MyProductTable = ({ card, handleDelete }) => {
 
         </span>
 
-        <button className="btn rounded-full btn-link bg-green-200" onClick={() => document.getElementById('my_modal_5').showModal()}>Update</button>
+        <button className="btn  rounded-full gbg-green-200" onClick={() => document.getElementById('my_modal_5').showModal()}>
+        <FaAddressCard></FaAddressCard>
+        </button>
 
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
@@ -276,7 +334,7 @@ const MyProductTable = ({ card, handleDelete }) => {
             </form>
           </div>
         </dialog>
-
+        
       </td>
     </tr>
   );

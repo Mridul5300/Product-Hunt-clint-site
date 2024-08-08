@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 import {  Link, useNavigate } from "react-router-dom";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import AxiosPublic from "../hooks/AxiosPublic";
+
 
 
 const Registration = () => {
+     const axiospublic = AxiosPublic()
      const navigate = useNavigate();
      const { creatUser, logout, upDateUser } = useContext(AuthContext);
      const [error, setError] = useState(null);
@@ -40,7 +43,17 @@ const Registration = () => {
                     // update user
                     upDateUser(data.fullName, data.image)
                     .then( () => {
-                         console.log("userProfile UpDate");
+                         const userInfo = {
+                              name:data.fullName,
+                              email:data.email
+                         }
+                         axiospublic.post('/user', userInfo)
+                         .then( res => {
+                              if(res.data.insertedId){
+                                   console.log('user added to the database');
+                              }
+                         })
+                         // console.log("userProfile UpDate");
                     })
                     
                     reset()
