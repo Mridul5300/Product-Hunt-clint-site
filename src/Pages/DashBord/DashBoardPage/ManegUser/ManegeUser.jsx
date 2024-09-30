@@ -4,8 +4,11 @@ import {  FaTrashAlt, FaUsers } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 
 
+
 const ManegeUser = () => {
      const axiosSecure = useAxiosSecure();
+     
+      
 
      const { data: users = [] , refetch } = useQuery({
           queryKey: ['users'],

@@ -5,17 +5,19 @@ import { useQuery } from "@tanstack/react-query";
 
 
 const useModerator = () => {
-     const {user} = useContext(AuthContext);
+     const { user } = useContext(AuthContext);
      const axiosSecure = useAxiosSecure();
-     const {data:  isModerator} = useQuery({
-          queryKey:[user?.email, 'isModerator'],
-          queryFn: async() =>{
+     const { data: isModerator, isPending: isModeratorLoading } = useQuery({
+          queryKey: [user?.email, 'isModerator'],
+          enabled: !!user?.email,
+          queryFn: async () => {
                const res = await axiosSecure.get(`/user/moderator/${user.email}`);
-               // console.log(res.data);
-               return res.data?.moderator;
+               // console.log(res);     
+               return res.data?.moderator || false;     
           }
-     })
-     return [isModerator]
+     });
+     return [isModerator, isModeratorLoading]; 
 };
+
 
 export default useModerator;

@@ -8,9 +8,9 @@ const useProduct = () => {
      const axiosSecure = useAxiosSecure();
      const {user} = useContext(AuthContext); 
      const { data: product = []} = useQuery({
-          queryKey:['product', user?.email],
+          queryKey:['product',user.email],
           queryFn: async() => {
-               const res = await axiosSecure.get(`/user?email=${user.email}`);
+               const res = await axiosSecure.get(`/myproduct/${user?.email}`);
                return res.data
           }
      })
@@ -18,3 +18,17 @@ const useProduct = () => {
 };
 
 export default useProduct;
+// const useProduct = () => {
+//      const axiosSecure = useAxiosSecure();
+//      const { data: products = []} = useQuery({
+//           queryKey:['products'], // Removed undefined product
+//           queryFn: async() => {
+//                const res = await axiosSecure.get("/product");
+//                console.log(res.data);
+//                return res.data;
+//           }
+//      });
+//      return [products];
+// };
+
+// export default useProduct;

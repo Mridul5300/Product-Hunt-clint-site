@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../MainLayout/Main";
 import Home from "../Pages/Home/Home";
 import Products from "../Pages/Products/Products";
@@ -18,84 +18,93 @@ import Reported from "../Pages/DashBord/DashBoardPage/Reported/Reported";
 import Review from "../Pages/DashBord/DashBoardPage/Review/Review";
 import MangeCupon from "../Pages/DashBord/DashBoardPage/Manege Cupon/MangeCupon";
 import ModeratoreRoute from "./ModeratorRoute/ModeratoreRoute";
+import AddCuppons from "../Pages/DashBord/DashBoardPage/Manege Cupon/AddCuppons";
 
 
 
 
 const router = createBrowserRouter([
      {
-       path: "/",
-       element: <Main></Main>,
-      errorElement:<ErrorPage></ErrorPage>,
-       children:[
-          {
-               path:"/",
-               element:<Home></Home>
-               
-          },
-          {
-               path:"/product",
-               element:<PrivateRoute><Products></Products></PrivateRoute>          
-          },
+          path: "/",
+          element: <Main></Main>,
+          errorElement: <ErrorPage></ErrorPage>,
+          children: [
+               {
+                    path: "/",
+                    element: <Home></Home>
 
-          {
-               path: "/productdetail/:id",
-               element:<ProductDetails></ProductDetails>,
-               loader: ({ params }) => fetch(`http://localhost:5000
-/productdetail/${params.id}`)
-          },
-          {
-               path:"/login",
-               element:<Login></Login>
-          },
-          {
-               path:"/registration",
-               element:<Registration></Registration>
-          },
-       ]
+               },
+               {
+                    path: "/product",
+                    element: <PrivateRoute><Products></Products></PrivateRoute>
+               },
+
+               {
+                    path: "/productdetail/:id",
+                    element: <ProductDetails></ProductDetails>,
+                    loader: ({ params }) => fetch(`http://localhost:5000/productdetail/${params.id}`)
+               },
+               {
+                    path: "/login",
+                    element: <Login></Login>
+               },
+               {
+                    path: "/registration",
+                    element: <Registration></Registration>
+               },
+          ]
      },
-     
-     {     
-     path:'dashbord',
-     element:<PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
-     children:[
-          {
-               path:"card",
-               element:<AddProduct></AddProduct>
-          },
-          {
-               path:"myproduct",
-               element:<MyProduct></MyProduct>
-          },
-          {
-               path:"profile",
-               element:<MyProFile></MyProFile>
-          },
-          // Admin 
-          {
-               path:'statistics',
-               element:<AdminRoute><StaticPage></StaticPage></AdminRoute>
-          },
-          {
-               path:'users',
-               element:<AdminRoute><ManegeUser></ManegeUser></AdminRoute>
-          },
-          {
-               path:'coupons',
-               element:<AdminRoute><MangeCupon></MangeCupon></AdminRoute>
-          },
-          // Moderator
-          {
-               path:'report',
-               element:<ModeratoreRoute><Reported></Reported></ModeratoreRoute>
-          },
-          {
-               path:'review',
-               element:<ModeratoreRoute><Review></Review></ModeratoreRoute>
-          }
-     ]
+
+     {
+          path: 'dashbord',
+          element: <PrivateRoute><DashBoardLayout></DashBoardLayout></PrivateRoute>,
+          children: [
+               {
+                    path: "card",
+                    element: <AddProduct></AddProduct>
+               },
+               {
+                    path: "myproduct",
+                    element: <MyProduct></MyProduct>
+               },
+               {
+                    path: "profile",
+                    element: <MyProFile></MyProFile>
+               },
+               // Admin 
+               {
+                    path: 'statistics',
+                    element: <AdminRoute><StaticPage></StaticPage></AdminRoute>
+               },
+               {
+                    path: 'users',
+                    element: <AdminRoute><ManegeUser></ManegeUser></AdminRoute>
+               },
+               {
+                    path: 'coupons',
+                    element: <AdminRoute><MangeCupon></MangeCupon></AdminRoute>
+               },
+               {
+                    path:'addcupons',
+                    element:<AdminRoute><AddCuppons></AddCuppons></AdminRoute>
+               },
+               // Moderator
+               {
+                    path: 'report',
+                    element: <ModeratoreRoute><Reported></Reported></ModeratoreRoute>,
+                    
+               },
+               {
+                    path:'review',
+                    element:<ModeratoreRoute><Review></Review></ModeratoreRoute>,
+
+               },
+               
+
+               
+          ]
 
      }
 
-   ]);
-   export default router;
+]);
+export default router;

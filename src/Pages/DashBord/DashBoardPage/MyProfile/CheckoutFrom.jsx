@@ -3,64 +3,75 @@ import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useProduct from '../../../hooks/useProduct';
 
-
-const CheckoutFrom = () => {
-
-  const [clintSecret, setClintSecret] = useState();
-     const stripe = useStripe();
+const CheckoutFrom = ({ onPaymentSuccess }) => {
+  const [clientSecret, setClientSecret] = useState('');
+  const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
- const [product] = useProduct();
- const price = product.reduce( (total, item) => total + item.prices , 0 ) 
+  const [product] = useProduct();
 
-  // useEffect(  () => {
-  //    axiosSecure.post('/creat-payment-intent', {price: price} )
-  //   .then( res => {
-  //     console.log(res.data.clintSecret);
-  //     setClintSecret(res.data.clintSecret);
-  //   })
-  // },[axiosSecure,price])
+  const price = product.reduce((total, item) => {
+    const itemPrice = item.price || 0;
+    if (itemPrice > 0) {
+      return total + itemPrice;
+    }
+    console.error('Invalid or missing price for item:', item);
+    return total;
+  }, 0);
 
   useEffect(() => {
-    if (price >= 0.5) { // Ensure price meets minimum requirement
-      axiosSecure.post('/create-payment-intent', { price: price })
-        .then(res => {
-          console.log(res.data.clientSecret);
-      (res.data.clientSecret);
-      setClintSecret  });
-    } else {
-      console.error("The total amount must be at least $0.50.");
-    }
+    const createPaymentIntent = async () => {
+      if (price > 0) {
+        try {
+          const res = await axiosSecure.post('/create-payment-intent', { price });
+          setClientSecret(res.data.clientSecret);
+        } catch (error) {
+          console.error('Error creating payment intent:', error);
+        }
+      } else {
+        console.error("The total amount must be greater than $0.");
+      }
+    };
+
+    createPaymentIntent();
   }, [axiosSecure, price]);
 
-     const  handleSubmit = async(event) => {
-          event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-          if (!stripe || !elements) {
-               
-               return;
-             }
+    if (!stripe || !elements || !clientSecret) {
+      return;
+    }
 
-             const card = elements.getElement(CardElement)
-             if (card == null) {
-               return;
-             }
+    const card = elements.getElement(CardElement);
+    if (!card) {
+      return;
+    }
 
-             const {error, paymentMethod} = await stripe.createPaymentMethod({
-               type: 'card',
-               card,
-             });
+    const { error: paymentMethodError, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card,
+    });
 
-             if (error) {
-               console.log('[error]', error);
-             } else {
-               console.log('[PaymentMethod]', paymentMethod);
-             }
+    if (paymentMethodError) {
+      console.log('[Payment Method Error]', paymentMethodError);
+      // You can display this error to the user
+      return;
+    }
 
-     }
+    const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: paymentMethod.id
+    });
 
-     return (
-          <form onSubmit={handleSubmit}>
+    if (confirmError) {
+      console.log('[Confirm Error]', confirmError);
+    } else if (paymentIntent.status === 'succeeded') {
+      onPaymentSuccess();
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
       <CardElement
         options={{
           style: {
@@ -77,11 +88,11 @@ const CheckoutFrom = () => {
           },
         }}
       />
-      <button  className='btn mt-36' type="submit" disabled={!stripe || !clintSecret}>
-        Conferm Pay
+      <button className='btn mt-36' type="submit">
+        Confirm Pay
       </button>
     </form>
-     );
+  );
 };
 
 export default CheckoutFrom;
