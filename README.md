@@ -1,7 +1,7 @@
 # Techunt Website
-To get started with Tech Hunt Product, visit our live site at[ # Techunt Website
+To get started with Tech Hunt Product, visit our live site at[ # Techunt Website]
 
-Welcome to Hotel booking Website , a dynamic and user-friendly platform designed to enhance your reading experience.
+Welcome to Tech Hunt Website , a dynamic and user-friendly platform designed to enhance your reading experience.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to Hotel booking Website , a dynamic and user-friendly platform designed
 
 ## Deploy Link  live link
 
-To get started with Book Vibe, visit our live site at[https://techproduct-website.web.app/]
+To get started with TechHUnt, visit our live site at[https://techproduct-website.web.app/]
 
 ## github clint  link
 
