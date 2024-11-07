@@ -18,9 +18,9 @@ To get started with Book Vibe, visit our live site at[https://techproduct-websit
 
 ## github clint  link
 
- [https://github.com/programming-hero-web-course1/b9a12-client-side-Mridul5300].
+ [ https://github.com/Mridul5300/Product-Hunt-clint-site].
 ## github server link 
-[https://github.com/programming-hero-web-course1/b9a12-server-side-Mridul5300]
+[https://github.com/Mridul5300/Product-Hunt-server-site]
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.)
